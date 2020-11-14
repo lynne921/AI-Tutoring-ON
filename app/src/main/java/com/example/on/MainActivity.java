@@ -6,19 +6,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.on.CategoryAdapter;
 import com.example.on.CategoryItem;
 import com.example.on.ChatActivity;
 import com.example.on.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ListView listView;
     List<CategoryItem> list;
+    //데이터베이스 연결
+    private FirebaseAuth mAuth;
 
     @Override
     public void onClick(View view) {
@@ -30,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = findViewById(R.id.listView);
+        listView = findViewById(R.id.listview_real);
         list = new ArrayList<>();
 
         //db에서 마지막 대화 카테고리별 긁어와서 list에 추가하기.(카테고리이름, 마지막 메세지)
-        CategoryItem c= new CategoryItem("k-pop","what's your favorite singer?");
+        CategoryItem c = new CategoryItem("k-pop", "what's your favorite singer?");
         list.add(c);
-        c= new CategoryItem("Toeic spicking","what does she ~~?");
+        c = new CategoryItem("Toeic spicking", "what does she ~~?");
         list.add(c);
 
         //카테고리 어댑터
@@ -60,5 +66,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
 }

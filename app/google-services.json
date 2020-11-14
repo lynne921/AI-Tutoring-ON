@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "792205036563",
+    "firebase_url": "https://ai-tutoring.firebaseio.com",
+    "project_id": "ai-tutoring",
+    "storage_bucket": "ai-tutoring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792205036563:android:f469d8fb18b3f5318983e6",
+        "android_client_info": {
+          "package_name": "com.example.on"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792205036563-oipn13ema1to74i1aomf2lt98h00i60g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAplwfsADJQDFIhVifWeifzDFs8HNAZNCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792205036563-oipn13ema1to74i1aomf2lt98h00i60g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,7 +15,7 @@ public class IntroActivity extends AppCompatActivity {
 
         Handler handler = new Handler();
         handler.postDelayed(()->{
-            Intent intent = new Intent(com.example.on.IntroActivity.this, com.example.on.MainActivity.class);//main액티비티로 넘어감.
+            Intent intent = new Intent(com.example.on.IntroActivity.this, com.example.on.LoginActivity.class);//main액티비티로 넘어감.
             startActivity(intent);
             finish();
         }, 3000);

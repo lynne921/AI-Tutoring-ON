@@ -10,19 +10,22 @@
         android:src="@drawable/login"/>
 
     <EditText
+        android:id="@+id/etID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="이메일"
-        android:inputType="text"
-        android:shadowColor="@color/black" />
+        android:inputType="textEmailAddress"
+        android:shadowColor="#000000" />
 
     <EditText
+        android:id="@+id/etPwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="비밀번호"
-        android:inputType="text" />
+        android:inputType="textPassword" />
 
     <Button
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -35,9 +38,18 @@
         android:text="or" />
 
     <Button
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="회원가입"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        />
 
 </LinearLayout>
