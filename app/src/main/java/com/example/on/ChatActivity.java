@@ -34,7 +34,6 @@ public class ChatActivity extends AppCompatActivity {
     String stID;
     FirebaseDatabase database;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
