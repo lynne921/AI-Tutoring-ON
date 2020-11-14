@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.w3c.dom.Comment;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
 
@@ -33,6 +34,7 @@ public class ChatActivity extends AppCompatActivity {
     Button btnSend;
     String stID;
     FirebaseDatabase database;
+    ArrayList<Chat> chatArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class ChatActivity extends AppCompatActivity {
         // DB에 메시지 저장(write)
         database = FirebaseDatabase.getInstance();
 
+        chatArrayList = new ArrayList<>();
+
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -56,8 +60,8 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        String[] myDataset = {"test1","test2","test3","test4"};
-        mAdapter = new MyAdapter(myDataset);
+        String[] myDataset = {"daily","kpop","hobby","movie"};
+        mAdapter = new MyAdapter(chatArrayList, stID);
         recyclerView.setAdapter(mAdapter);
 
         //실시간이어서 DB 수정될 때마다 발동
@@ -74,6 +78,8 @@ public class ChatActivity extends AppCompatActivity {
 
                 Log.d(TAG, "stID: "+stID);
                 Log.d(TAG, "stText: "+stText);
+                chatArrayList.add(chat);
+                mAdapter.notifyDataSetChanged();
                 // ...
             }
 
