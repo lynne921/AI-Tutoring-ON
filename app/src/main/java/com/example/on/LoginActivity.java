@@ -69,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
                                     String stPwd = user.getDisplayName();
                                     Log.d(TAG, "stID: "+stID+", stPwd: "+stPwd);
                                     Intent in = new Intent(LoginActivity.this, ChatActivity.class);
+                                    //ChatActivity로 이메일 넘기기
+                                    in.putExtra("email", stID);
                                     startActivity(in);
                         //            updateUI(user);
                                 } else {
