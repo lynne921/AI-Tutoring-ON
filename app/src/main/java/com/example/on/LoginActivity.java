@@ -1,7 +1,6 @@
 package com.example.on;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String stID = user.getEmail();
                                     String stPwd = user.getDisplayName();
                                     Log.d(TAG, "stID: "+stID+", stPwd: "+stPwd);
-                                    Intent in = new Intent(LoginActivity.this, ChatActivity.class);
+                                    Intent in = new Intent(LoginActivity.this, CategoryActivity.class);
                                     //ChatActivity로 이메일 넘기기
                                     in.putExtra("email", stID);
                                     startActivity(in);

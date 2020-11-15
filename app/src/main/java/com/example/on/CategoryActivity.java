@@ -6,23 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.on.CategoryAdapter;
-import com.example.on.CategoryItem;
-import com.example.on.ChatActivity;
-import com.example.on.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class CategoryActivity extends AppCompatActivity implements View.OnClickListener {
     ListView listView;
     List<CategoryItem> list;
+    String stMsg;
     //데이터베이스 연결
     private FirebaseAuth mAuth;
 
@@ -35,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        String stID = getIntent().getStringExtra("email");
         listView = findViewById(R.id.listview_real);
         list = new ArrayList<>();
 
@@ -57,7 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-
+                Intent in = new Intent(CategoryActivity.this, ChatActivity.class);
+                //ChatActivity로 이메일 넘기기
+                in.putExtra("email", stID);
+                startActivity(in);
                 /* putExtra의 첫 값은 식별 태그, 뒤에는 다음 화면에 넘길 값 */
                 //chat activity로 넘겨서 거기서 그 카테고리에 맞는 대화들 쭉 긁어와 화면에 뿌림->화면 1개만 사용.
                 intent.putExtra("category", list.get(position).getCategory());

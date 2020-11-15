@@ -1,7 +1,11 @@
 package com.example.on;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +30,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
+import java.util.Locale;
+
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 
 public class ChatActivity extends AppCompatActivity {
     private static final String TAG = "ChatActivity";
@@ -31,9 +42,13 @@ public class ChatActivity extends AppCompatActivity {
     MyAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     EditText etText;
+    Intent intent;
     Button btnSend;
+    Button btnTTS;
     String stID;
     FirebaseDatabase database;
+    SpeechRecognizer mRecognizer;
+    private TextToSpeech tts;
     ArrayList<Chat> chatArrayList;
 
     @Override
@@ -46,10 +61,29 @@ public class ChatActivity extends AppCompatActivity {
         etText = findViewById(R.id.etText);
         // DB에 메시지 저장(write)
         database = FirebaseDatabase.getInstance();
+        btnTTS = findViewById(R.id.btnTTS);
 
         chatArrayList = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                tts.setLanguage(Locale.ENGLISH);
+            }
+        });
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+        }
+
+        intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
+        mRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+//        mRecognizer.setRecognitionListener(recognitionListener);
+
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -80,6 +114,13 @@ public class ChatActivity extends AppCompatActivity {
                 Log.d(TAG, "stText: "+stText);
                 chatArrayList.add(chat);
                 mAdapter.notifyDataSetChanged();
+
+                chat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
                 // ...
             }
 
@@ -122,6 +163,7 @@ public class ChatActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         };
+
         DatabaseReference ref = database.getReference("message");
         ref.addChildEventListener(childEventListener);
 
